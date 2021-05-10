@@ -48,7 +48,6 @@ public class ShowDetailsService {
             showDetails.setDuration(lineContents[9]);
             showDetails.setListedIn(lineContents[10]);
             showDetails.setDescription(lineContents[11]);
-            showDetails.setSource("CSV");
 
             List<ShowDetails> result = showDetailsRepository.findAll((Specification<ShowDetails>) (root, criteriaQuery, criteriaBuilder) -> {
                 List<Predicate> predicates = new ArrayList<>();
@@ -74,7 +73,7 @@ public class ShowDetailsService {
         return details;
     }
 
-    public List<ShowDetails> findByInput(Map<String, String> params,String dataSource) {
+    public List<ShowDetails> findByInput(Map<String, String> params) {
         List<ShowDetails> result = showDetailsRepository.findAll((Specification<ShowDetails>) (root, criteriaQuery, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
 
@@ -95,7 +94,7 @@ public class ShowDetailsService {
 
         });
         if (params.get("count") != null) {
-            result = result.stream().filter(x -> x.getSource() == dataSource).limit(Integer.parseInt(params.get("count"))).collect(Collectors.toList());
+            result = result.stream().limit(Integer.parseInt(params.get("count"))).collect(Collectors.toList());
         }
         return result;
     }

@@ -77,10 +77,6 @@ public class ShowDetails {
     )
     private String description;
 
-    @Column(
-            name = "source"
-    )
-    private String source;
 
     public int getId() {
         return id;

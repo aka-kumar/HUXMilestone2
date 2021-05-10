@@ -27,7 +27,7 @@ public class NetflixController {
     }
 
     @GetMapping("/tvshows")
-    public ResponseEntity getShowData(@RequestHeader(value = "X-Auth-Token",required = false) String token,@RequestParam Map<String, String> params,@RequestParam String dataSource){
+    public ResponseEntity getShowData(@RequestHeader(value = "X-Auth-Token",required = false) String token,@RequestParam Map<String, String> params){
 
         if(token== null || token.length() == 0){
             System.out.println("bad request");
@@ -36,14 +36,13 @@ public class NetflixController {
 
         long time = System.currentTimeMillis();
         HttpHeaders header = new HttpHeaders();
-        List<ShowDetails> detailsList = showDetailsService.findByInput(params, dataSource);
+        List<ShowDetails> detailsList = showDetailsService.findByInput(params);
         header.add("X-TIME-TO-EXECUTE", (System.currentTimeMillis() - time) + " ms");
         return new ResponseEntity<>(detailsList,header,HttpStatus.OK);
     }
 
     @PostMapping("/shows")
     public ResponseEntity<ShowDetails> postData(@RequestBody ShowDetails showDetails){
-        showDetails.setSource("MYSQL");
         ShowDetails details = showDetailsService.postData(showDetails);
         return new ResponseEntity<>(details, HttpStatus.OK);
     }
