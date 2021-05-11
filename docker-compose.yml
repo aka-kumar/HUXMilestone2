@@ -1,14 +1,21 @@
-spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://mysql-standalone:3306/hux?useSSL=false
-    username: root
-    password: Griezmann@17
-    hikari:
-      initialization-fail-timeout: 0
-  jpa:
-    database-platform: org.hibernate.dialect.MySQL5Dialect
-    generate-ddl: true
-    show-sql: true
-    hibernate:
-      ddl-auto: create
+version: "3"
+services:
+  netflixshow:
+    image: netflixshow-lat
+    ports:
+      - "8082:8080"
+    networks:
+      - netflix-network
+    depends_on:
+      - mysqldb
+
+    mysqldb:
+      image: mysql:8
+      networks:
+        - netflix-network
+      environment:
+        - MYSQL_ROOT_PASSWORD=Griezmann@17
+        - MYSQL_DATABASE=hux
+
+networks:
+  netflix-network:
