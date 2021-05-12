@@ -1,9 +1,9 @@
 version: "3"
 services:
   netflixshow:
-    image: netflixshow-lat
+    image: netflix-show-sql
     ports:
-      - "8082:8080"
+      - "8082:8082"
     networks:
       - netflix-network
     depends_on:

@@ -24,7 +24,7 @@ public class ShowDetailsService {
     private ShowDetailsRepository showDetailsRepository;
 
     public void insertToDb() throws Exception {
-        BufferedReader reader = new BufferedReader(new FileReader("C://Users//DELL//Downloads//NetflixShow//src//main//resources//netflix_titles.csv"));
+        BufferedReader reader = new BufferedReader(new FileReader("classpath:netflix_titles.csv"));
         String line = null;
         int count = 0;
         while ((line = reader.readLine()) != null) {
